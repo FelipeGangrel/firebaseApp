@@ -1,0 +1,18 @@
+@import 'variables';
+@import '~bootstrap/scss/bootstrap';
+@import 'functions';
+
+.width-600 {
+    max-width: 600px;
+}
+.width-400 {
+    max-width: 400px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+main.with-navbar {
+    margin-top: 56px;
+}
