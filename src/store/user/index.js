@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import dbService from '../../services/dbService'
 
 export default {
   state: {
@@ -10,6 +11,20 @@ export default {
     }
   },
   actions: {
+    updateUserProfile ({commit}, payload) {
+      const userProfile = payload
+      dbService.updateUserProfile(userProfile)
+        .then(user => {
+          commit('setUser', {
+            uid: user.uid,
+            name: user.name,
+            email: user.email,
+            photoUrl: user.photoURL
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+    },
     signUserUp ({commit}, payload) {
       commit('setLoading', true)
       commit('clearError')
@@ -18,7 +33,7 @@ export default {
           user => {
             commit('setLoading', false)
             const newUser = {
-              id: user.uid,
+              uid: user.uid,
               name: user.displayName,
               email: user.email,
               photoUrl: user.photoURL
@@ -42,7 +57,7 @@ export default {
           user => {
             commit('setLoading', false)
             const newUser = {
-              id: user.uid,
+              uid: user.uid,
               name: user.displayName,
               email: user.email,
               photoUrl: user.photoURL
@@ -59,10 +74,9 @@ export default {
         )
     },
     autoSignIn ({commit}, payload) {
-      console.log('autoSignIn')
       commit('setUser', {
-        id: payload.uid,
-        name: payload.displayName,
+        uid: payload.uid,
+        name: payload.name,
         email: payload.email,
         photoUrl: payload.photoURL
       })

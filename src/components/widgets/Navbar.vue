@@ -4,15 +4,15 @@
       <div class="mr-3">
         <button class="btn btn-primary" @click="onSidebarOpen"><icon name="bars"/></button>
       </div>
-      <div class="navbar-brand">{{ $route.name }}</div>
-      <div class="ml-auto">
+      <div class="options">
+        <div class="mr-3 d-none d-sm-block" v-if="user">{{ user.email }}</div>
         <drop-menu>
           <button class="btn btn-primary" slot="activator">
             <icon name="ellipsis-v"/>
           </button>
           <div slot="menu-content">
+            <router-link to="/">home</router-link>
             <router-link to="/profile">profile</router-link>
-            <router-link to="/settings">settings</router-link>
             <span @click="onSignOut">logout</span>
           </div>
         </drop-menu>
@@ -28,10 +28,6 @@ import DropMenu from '@/components/widgets/DropMenu'
 export default {
   name: 'Navbar',
   components: { Icon, DropMenu },
-  data () {
-    return {
-    }
-  },
   computed: {
     user () {
       return this.$store.getters.user
@@ -62,6 +58,12 @@ export default {
   color: pick-visible-color($primary, $dark, $light);
   .container-fluid {
     height: $navbar-height;
+  }
+  .options {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
 </style>

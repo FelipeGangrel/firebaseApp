@@ -1,14 +1,19 @@
 <template>
   <button :class="classes">
-    <slot></slot>
+    <icon :name="icon" />
   </button>
 </template>
 
 <script>
+import Icon from '@/components/widgets/Icon'
 export default {
   name: 'FabButton',
+  components: {
+    Icon
+  },
   props: {
-    classes: {type: String, default: 'fixed bottom right'}
+    classes: {type: String, default: 'fixed bottom right'},
+    icon: {type: String}
   }
 }
 </script>
