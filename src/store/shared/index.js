@@ -1,7 +1,8 @@
 export default {
   state: {
     loading: false,
-    error: null
+    error: null,
+    sidebarOpen: false
   },
   mutations: {
     setLoading (state, payload) {
@@ -12,11 +13,25 @@ export default {
     },
     clearError (state) {
       state.error = null
+    },
+    sidebarOpen (state) {
+      state.sidebarOpen = true
+    },
+    sidebarClose (state) {
+      if (state.sidebarOpen) {
+        state.sidebarOpen = false
+      }
     }
   },
   actions: {
     clearError ({commit}) {
       commit('clearError')
+    },
+    sidebarOpen ({commit}) {
+      commit('sidebarOpen')
+    },
+    sidebarClose ({commit}) {
+      commit('sidebarClose')
     }
   },
   getters: {
@@ -25,6 +40,9 @@ export default {
     },
     error (state) {
       return state.error
+    },
+    sidebarOpen (state) {
+      return state.sidebarOpen
     }
   }
 }

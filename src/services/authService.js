@@ -8,8 +8,6 @@ const initializeAuth = new Promise(resolve => {
     } else {
       store.dispatch('logout')
     }
-    console.log('user', store.getters.user)
-    console.log('resolving')
     resolve(user)
   })
 })

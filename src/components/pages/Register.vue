@@ -72,8 +72,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/scss/main.scss';
 #register {
-  // background-color: darken($light, 10%);
-  @extend .bg-gradient-light;
+  background-color: gray('300');
   color: pick-visible-color($light, $dark, $light);
   height: 100vh;
   i, svg {

@@ -3,16 +3,20 @@
 @import 'functions';
 
 .width-600 {
-    max-width: 600px;
+  max-width: 600px;
 }
 .width-400 {
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .form-control:focus {
-    box-shadow: none;
+  box-shadow: none;
+}
+
+.raised {
+  box-shadow: 2px 2px 10px 2px rgba(#000, .1);
 }
 
 main.with-navbar {
-    margin-top: 56px;
+  margin-top: $navbar-height;
 }

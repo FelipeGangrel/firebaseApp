@@ -14,8 +14,5 @@ new Vue({
   store,
   router,
   components: { App },
-  template: '<App/>',
-  created () {
-    console.log('App created')
-  }
+  template: '<App/>'
 })

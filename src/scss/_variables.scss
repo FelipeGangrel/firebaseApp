@@ -54,6 +54,7 @@ $colors: map-merge((
 
 $primary:       $purple;
 $secondary:     $gray-600;
+$accent:        $teal;
 $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
@@ -65,6 +66,7 @@ $theme-colors: ();
 $theme-colors: map-merge((
   "primary":    $primary,
   "secondary":  $secondary,
+  "accent":     $accent,
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
@@ -74,4 +76,5 @@ $theme-colors: map-merge((
 ), $theme-colors);
 // stylelint-enable
 
-$enable-gradients: true;
+$enable-gradients: false;
+$navbar-height: 56px;
