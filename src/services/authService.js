@@ -8,6 +8,8 @@ const initializeAuth = new Promise(resolve => {
       dbService.getUserProfile(user)
         .then(userData => {
           store.dispatch('autoSignIn', userData)
+          // store.dispatch('getToDos')
+          store.dispatch('realtimeGetToDos')
         }).catch(err => {
           console.log(err)
         })

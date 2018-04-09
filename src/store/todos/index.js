@@ -6,22 +6,52 @@ export default {
     creatingToDo: false
   },
   mutations: {
-    creatingTodo (state, payload) {
-      state.creatingTodo = payload
+    creatingToDo (state, payload) {
+      state.creatingToDo = payload
+    },
+    setToDos (state, payload) {
+      console.log('payload', payload)
+      payload.forEach(toDo => {
+        state.todos.push(toDo)
+      })
     }
   },
   actions: {
     createToDo ({commit, getters}, payload) {
       const toDo = payload
       const userUid = getters.user.uid
-      commit('creatingTodo', true)
+      commit('creatingToDo', true)
       dbService.createToDo(userUid, toDo)
         .then(docRef => {
-          console.log('docRef', docRef)
-          commit('creatingTodo', false)
+          commit('creatingToDo', false)
         }).catch(err => {
-          console.log(err)
+          console.error(err)
         })
+    },
+    async getToDos ({commit, getters}) {
+      try {
+        const userUid = getters.user.uid
+        const toDos = await dbService.getToDos(userUid)
+        commit('setToDos', toDos)
+      } catch (err) {
+        console.error(err)
+      }
+    },
+    async realtimeGetToDos ({commit, getters}) {
+      try {
+        const userUid = getters.user.uid
+        const todosCollection = await dbService.realtimeGetToDos(userUid)
+        todosCollection.onSnapshot(snapshot => {
+          let toDos = []
+          snapshot.docChanges.forEach(change => {
+            const toDo = change.doc.data()
+            toDos.push(toDo)
+          })
+          commit('setToDos', toDos)
+        })
+      } catch (err) {
+        console.error(err)
+      }
     }
   },
   getters: {

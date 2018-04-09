@@ -1,55 +1,70 @@
 import { db } from '../firebase/firebaseInit'
 
-const usersCollection = db.collection('users')
+const usersCollection = db().then(db => {
+  return db.collection('users')
+}).catch(err => {
+  console.error(err)
+})
 
 export default {
-  updateUserProfile (user) {
-    const userProfile = {
-      uid: user.uid,
-      name: user.name || null,
-      email: user.email || null,
-      photoUrl: user.photoUrl || null
+  async updateUserProfile (user) {
+    try {
+      const userProfile = {
+        uid: user.uid,
+        name: user.name || null,
+        email: user.email || null,
+        photoUrl: user.photoUrl || null
+      }
+      const collection = await usersCollection
+      await collection.doc(userProfile.uid).set(userProfile)
+      return userProfile
+    } catch (err) {
+      return err
     }
-    return new Promise((resolve, reject) => {
-      usersCollection.doc(userProfile.uid).set(userProfile)
-        .then(() => {
-          resolve(userProfile)
-        }).catch(err => {
-          reject(err)
-        })
-    })
   },
-  getUserProfile (user) {
-    return new Promise((resolve, reject) => {
-      const docRef = usersCollection.doc(user.uid)
-      docRef.get()
-        .then(doc => {
-          if (doc.exists) {
-            // retorno perfil caso exista
-            resolve(doc.data())
-          } else {
-            // crio perfil e retorno
-            this.updateUserProfile(user)
-              .then(userData => {
-                resolve(userData)
-              }).catch(err => {
-                console.log(err)
-              })
-          }
-        }).catch(err => {
-          reject(err)
-        })
-    })
+  async getUserProfile (user) {
+    try {
+      const collection = await usersCollection
+      const doc = await collection.doc(user.uid).get()
+      if (doc.exists) {
+        // retornando perfil
+        return doc.data()
+      } else {
+        // criando perfil e retornando
+        const userData = await this.updateUserProfile(user)
+        return userData
+      }
+    } catch (err) {
+      return err
+    }
   },
-  createToDo (userUid, toDo) {
-    return new Promise((resolve, reject) => {
-      const docRef = usersCollection.doc(userUid).collection('todos')
-      docRef.add(toDo)
-        .then(docRef => {
-          resolve(docRef)
-        }).catch(err => {
-          reject(err)
-        })
-    })
+  async createToDo (userUid, toDo) {
+    try {
+      const collection = await usersCollection
+      const toDoCollection = await collection.doc(userUid).collection('todos')
+      const docRef = await toDoCollection.add(toDo)
+      return docRef
+    } catch (err) {
+      return err
+    }
+  },
+  async getToDos (userUid) {
+    try {
+      const collection = await usersCollection
+      const toDoCollection = await collection.doc(userUid).collection('todos')
+      const querySnapshot = await toDoCollection.get()
+      let toDos = []
+      querySnapshot.forEach(toDo => {
+        toDos.push(toDo.data())
+      })
+      return toDos
+    } catch (err) {
+      return err
+    }
+  },
+  async realtimeGetToDos (userUid) {
+    const collection = await usersCollection
+    const todosCollection = await collection.doc(userUid).collection('todos')
+    return todosCollection
   }
 }

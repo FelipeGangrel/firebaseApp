@@ -11,8 +11,6 @@
             <icon name="ellipsis-v"/>
           </button>
           <div slot="menu-content">
-            <router-link to="/">home</router-link>
-            <router-link to="/profile">profile</router-link>
             <span @click="onSignOut">logout</span>
           </div>
         </drop-menu>

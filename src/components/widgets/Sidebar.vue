@@ -1,6 +1,11 @@
 <template>
   <aside id="navbar" :class="{'open': active}">
-    sidebar
+    <section class="menu">
+      <ul>
+        <li><router-link to="/">Home</router-link></li>
+        <li><router-link to="/profile">Perfil</router-link></li>
+      </ul>
+    </section>
     <div class="sidebar-close" @click="onSidebarClose"></div>
   </aside>
 </template>
@@ -36,6 +41,21 @@ export default {
   width: 200px;
   height: 100vh;
   transition: left .3s ease-in-out;
+  .menu {
+    ul {
+      @extend .list-unstyled;
+      li a {
+        display: block;
+        color: $dark;
+        text-decoration: none;
+        padding: .5em 1em;
+        transition: all .3s ease-in-out;
+        &:hover {
+          background-color: gray('200');
+        }
+      }
+    }
+  }
   .sidebar-close {
     display: none;
     margin-left: 200px;

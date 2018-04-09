@@ -17,6 +17,9 @@
     </modal>
     <main id="home" class="with-navbar">
       <div class="container">
+        <div class="todo" v-for="todo of todos" v-bind:key="todo.title">
+          {{ todo.title }}
+        </div>
       </div>
       <fab-button @click.native="onNewToDo" icon="plus" classes="fixed bottom right btn-accent"/>
     </main>
@@ -43,6 +46,11 @@ export default {
     return {
       newTitle: '',
       newContent: ''
+    }
+  },
+  computed: {
+    todos () {
+      return this.$store.getters.todos
     }
   },
   methods: {
