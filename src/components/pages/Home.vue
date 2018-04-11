@@ -16,11 +16,12 @@
       </form>
     </modal>
     <main id="home" class="with-navbar">
-      <div class="container">
-        <div class="todo" v-for="todo of todos" v-bind:key="todo.title">
-          {{ todo.title }}
+      <section class="todos">
+        <div class="container">
+          <to-do-item v-for="(todo, index) of todos" v-bind:key="index" :id="index">
+          </to-do-item>
         </div>
-      </div>
+      </section>
       <fab-button @click.native="onNewToDo" icon="plus" classes="fixed bottom right btn-accent"/>
     </main>
   </div>
@@ -32,6 +33,7 @@ import Icon from '@/components/widgets/Icon'
 import Sidebar from '@/components/widgets/Sidebar'
 import FabButton from '@/components/widgets/FabButton'
 import Modal from '@/components/widgets/Modal'
+import ToDoItem from '@/components/widgets/ToDoItem'
 import { EventBus } from '@/components/eventBus'
 export default {
   name: 'Home',
@@ -40,7 +42,8 @@ export default {
     Icon,
     Sidebar,
     FabButton,
-    Modal
+    Modal,
+    ToDoItem
   },
   data () {
     return {
@@ -67,3 +70,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#home {
+  .todos {
+    padding: 50px 0;
+  }
+}
+</style>

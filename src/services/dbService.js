@@ -49,22 +49,23 @@ export default {
     }
   },
   async getToDos (userUid) {
-    try {
-      const collection = await usersCollection
-      const toDoCollection = await collection.doc(userUid).collection('todos')
-      const querySnapshot = await toDoCollection.get()
-      let toDos = []
-      querySnapshot.forEach(toDo => {
-        toDos.push(toDo.data())
-      })
-      return toDos
-    } catch (err) {
-      return err
-    }
-  },
-  async realtimeGetToDos (userUid) {
     const collection = await usersCollection
     const todosCollection = await collection.doc(userUid).collection('todos')
     return todosCollection
+  },
+  async updateToDo (userUid, toDo) {
+    try {
+      const todo = {
+        completed: toDo.completed,
+        title: toDo.title,
+        content: toDo.content
+      }
+      const collection = await usersCollection
+      const todosCollection = await collection.doc(userUid).collection('todos')
+      await todosCollection.doc(toDo.id).set(todo)
+      return todo
+    } catch (err) {
+      return err
+    }
   }
 }
