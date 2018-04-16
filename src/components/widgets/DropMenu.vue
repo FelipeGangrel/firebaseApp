@@ -35,6 +35,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '~@/scss/main.scss';
+// @import '~@/scss/_variables.scss';
+// @import '~@/scss/_functions.scss';
+// @import '~@/scss/_base.scss';
 .activator {
   position: relative;
 }

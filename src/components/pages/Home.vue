@@ -64,6 +64,8 @@ export default {
       if (this.newTitle.length && this.newContent.length) {
         const newToDo = {title: this.newTitle, content: this.newContent, completed: false}
         this.$store.dispatch('createToDo', newToDo)
+        this.newTitle = ''
+        this.newContent = ''
         EventBus.$emit('closeModal', 'newToDo')
       }
     }

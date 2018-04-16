@@ -70,7 +70,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/scss/main.scss';
+@import '~@/scss/_functions.scss';
+@import '~@/scss/_variables.scss';
 #register {
   background-color: gray('300');
   color: pick-visible-color($light, $dark, $light);

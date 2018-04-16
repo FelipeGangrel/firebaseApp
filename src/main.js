@@ -16,3 +16,14 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+window.addEventListener('load', e => {
+  if ('serviceWorker' in navigator) {
+    try {
+      navigator.serviceWorker.register('/service-worker.js')
+      console.log('Service worker registrado')
+    } catch (err) {
+      console.error(`Erro ao registrar Service Worker: ${err.stack}`)
+    }
+  }
+})

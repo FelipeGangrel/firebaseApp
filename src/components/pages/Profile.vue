@@ -52,7 +52,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/scss/main.scss';
 #profile {
   .account-details {
     padding: 50px 0;

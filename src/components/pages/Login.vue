@@ -42,8 +42,8 @@ export default {
   components: { Icon },
   data () {
     return {
-      email: 'felipefrog@gmail.com',
-      password: 'pid96sqdi'
+      email: '',
+      password: ''
     }
   },
   computed: {
@@ -70,7 +70,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/scss/main.scss';
+@import '~@/scss/_functions.scss';
+@import '~@/scss/_variables.scss';
 #login {
   background-color: $primary;
   color: pick-visible-color($primary, $dark, $light);
